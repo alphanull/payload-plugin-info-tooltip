@@ -1,0 +1,111 @@
+/*
+ * Info tooltip. Token order is Payload 4, then Payload 3.
+ * Callers do not import this file; the client components do.
+ */
+
+.info-tooltip-label {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+    vertical-align: middle;
+}
+
+.info-tooltip-label > label.field-label:not(.unstyled) {
+    margin-right: 0;
+}
+
+/*
+ * Payload 4 offsets a checkbox label by 4px so the text meets the box.
+ * The icon is a sibling of that label, so the offset has to move to the row.
+ * Payload 3 has no `--spacer-1`; the fallback keeps its checkbox row as it is.
+ */
+.checkbox-input .info-tooltip-label {
+    margin-block-start: var(--spacer-1, 0);
+}
+
+.checkbox-input .info-tooltip-label > label.field-label {
+    margin-block-start: 0;
+}
+
+/*
+ * Center the icon on the text line, in both Payload versions.
+ * Payload 3's label is a 20px line plus 5px padding-bottom. Payload 4 inherits
+ * a 16px line and has no padding. Centering on the label box therefore sits
+ * the icon higher in Payload 4. Starting at the top and offsetting by half of
+ * the leftover line box leaves that padding below the line.
+ */
+.info-tooltip {
+    /* The SVG is 1em square, so the trigger's font size is the icon size. */
+    --info-tooltip-icon-size: var(--text-body-medium-font-size, 1rem);
+
+    display: inline-flex;
+    margin-top: calc((1lh - var(--info-tooltip-icon-size)) / 2);
+}
+
+.info-tooltip__trigger {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: var(--info-tooltip-icon-size);
+    color: var(--color-elevation-400, var(--theme-elevation-400));
+    line-height: 0;
+    cursor: help;
+}
+
+/* Payload 3 removes the outline from every button. */
+.info-tooltip__trigger:focus-visible {
+    border-radius: 50%;
+    outline: var(--accessibility-outline);
+    outline-offset: var(--accessibility-outline-offset);
+}
+
+.info-tooltip__popup {
+    --info-tooltip-bg: var(--color-bg-elevated, var(--theme-input-bg));
+    --info-tooltip-fg: var(--color-text, var(--theme-text));
+
+    position: fixed;
+    z-index: var(--z-popup, 60);
+    max-width: min(20rem, calc(100vw - 1rem));
+    border-radius: var(--radius-medium, var(--style-radius-m));
+    background: var(--info-tooltip-bg);
+    color: var(--info-tooltip-fg);
+    box-shadow: var(--elevation-300-tooltip, 0 calc(var(--base) * 0.2) calc(var(--base) * 0.6) rgba(0, 0, 0, 0.15));
+}
+
+.info-tooltip__popup::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: var(--info-tooltip-caret-x, 1rem);
+    border: 6px solid transparent;
+    transform: translateX(-50%);
+}
+
+.info-tooltip__popup[data-placement=top]::after {
+    top: 100%;
+    border-top-color: var(--info-tooltip-bg);
+}
+
+.info-tooltip__popup[data-placement=bottom]::after {
+    bottom: 100%;
+    border-bottom-color: var(--info-tooltip-bg);
+}
+
+.info-tooltip__content {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+
+/*
+ * Collapsible headers put the toggle over the label. Lift the icon above it.
+ */
+.collapsible__header-wrap .info-tooltip,
+.collapsible-field__row-label-wrap .info-tooltip {
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+}
