@@ -1,2 +1,4 @@
 allowBuilds:
   esbuild: true
+# pnpm leaves the README out of the published metadata by default, and npmjs.com reads it from there.
+embedReadme: true

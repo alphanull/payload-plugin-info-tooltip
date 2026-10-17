@@ -1,6 +1,6 @@
 {
     "name": "@alphanull/payload-plugin-info-tooltip",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Shows Payload field descriptions and admin.custom.infoTooltip as an info icon tooltip.",
     "keywords": [
         "payload",

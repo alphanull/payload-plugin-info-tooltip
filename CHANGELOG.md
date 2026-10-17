@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org) and follows th
 
 ---
 
+## [1.0.1] - 2026-10-17
+
+### Fixed
+
+- The README now shows on npm.
+
 ## [1.0.0] - 2026-10-17
 
 ### Added
